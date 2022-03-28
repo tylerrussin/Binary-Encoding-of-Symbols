@@ -53,12 +53,31 @@ class Tree():
         printTree(self.head)
 
     def encode_char(self, char):
-        '''Usig binary search to build binary path'''
-        # Left here
-        # Thinking create a letter dicitonary that translates the input
-        # character into the associated frequency based on tree
-        # need to make a method to store all the frequencyes of the tree
-        pass
+        '''Using depth first traversal recursivly till letter is found'''
+        def create_path(node, char, path):
+            if node != None:
+                # Found targert
+                if node.val == char:
+                    return path
+
+                p1 = create_path(node.left, char, path + '1')    # Left node
+                p2 = create_path(node.right, char, path + '0')   # Right node
+
+                # Structure to output targeted path
+                if p1:
+                    return p1
+                if p2:
+                    return p2
+
+        path = ''
+        path = create_path(self.head, char, path)
+
+        # Output path
+        if path:
+            return path
+        else:
+            print('character not valid')
+                
 
 if __name__ == '__main__':
 
@@ -92,4 +111,5 @@ if __name__ == '__main__':
     # Save head of tree
     encoder = Tree(queue.delete())
 
-    encoder.__str__()
+    letter = 'E'
+    print(encoder.encode_char(letter))
