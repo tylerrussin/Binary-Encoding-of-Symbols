@@ -1,3 +1,5 @@
+import sys
+
 class PriorityQueue():
     '''A specialized queue data structure to 
        to return the lowest frequency count values'''
@@ -44,11 +46,15 @@ class Tree():
         self.head = head
 
     def __str__(self):
+        '''Outputs print statements to print a 
+           representation of the current binary tree values'''
+        
+        # Recursive depth first traversal structure
         def printTree(node, level=0):
             if node != None:
-                printTree(node.left, level + 1)
-                print(' ' * 4 * level + '-> ' + str(node.val))
-                printTree(node.right, level + 1)
+                printTree(node.left, level + 1)                 # Travel left
+                print(' ' * 4 * level + '-> ' + str(node.val))  # Print current node
+                printTree(node.right, level + 1)                # Travel right
 
         printTree(self.head)
 
@@ -76,13 +82,47 @@ class Tree():
         if path:
             return path
         else:
-            print('character not valid')
+            print(char, ' not a valid character')
+            sys.exit()
+
+    def encode_string(self, char_string):
+        '''Take in raw character string return binary encoded string'''
+        output = ''
+        for char in char_string:
+            output += self.encode_char(char)    # Call char encoding method
+        
+        return output
+
+    def decode_string(self, encoded_string):
+        output = ''
+        current_node = self.head
+        for val in encoded_string:
+            if current_node:
+                if current_node.val == None:
+                    if val == '1':
+                        current_node = current_node.left
+
+                    else:
+                        current_node = current_node.right
+
+                    if current_node.val != None:
+                        output += current_node.val
+                        current_node = self.head
+                    
+            else:
+                print(encoded_string, ' contains an invalid encoded character')
+                sys.exit()
+        
+        return output
+
+
+
                 
 
 if __name__ == '__main__':
 
     # Sample character string
-    char_input = 'ADBADEDBBDD'
+    char_input = 'ABCDEFGHIJKLMNOPQRSTUVWX      YZTHALHDFLJAEIHLJFALHEFSFJALJSFJIEAJFLSJFITIEZZZZEIFHLSSSLADBADEDBBDD'
     frequency_dict = {}
 
     # Create frequecny dicitonary
@@ -106,10 +146,15 @@ if __name__ == '__main__':
         n2 = queue.delete()
 
         # Insert probabiltiy as a value
-        queue.insert(Node(n1.frequency + n2.frequency, 0, left=n1, right=n2))
+        queue.insert(Node(n1.frequency + n2.frequency, None, left=n1, right=n2))
 
     # Save head of tree
     encoder = Tree(queue.delete())
 
-    letter = 'E'
-    print(encoder.encode_char(letter))
+    # encoder.__str__()
+    string = 'HELLO WORLD'
+    print(encoder.encode_string(string))
+
+    string = '10010101110110000011001110000000000011000000111100110'
+    print(encoder.decode_string(string))
+
