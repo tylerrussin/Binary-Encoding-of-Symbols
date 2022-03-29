@@ -121,6 +121,10 @@ class Tree():
 
 if __name__ == '__main__':
 
+    user_0 = {
+
+    }
+
     # Sample character string
     char_input = 'ABCDEFGHIJKLMNOPQRSTUVWX      YZTHALHDFLJAEIHLJFALHEFSFJALJSFJIEAJFLSJFITIEZZZZEIFHLSSSLADBADEDBBDD'
     frequency_dict = {}
@@ -152,7 +156,7 @@ if __name__ == '__main__':
     encoder = Tree(queue.delete())
 
     # encoder.__str__()
-    string = 'HELLO WORLD'
+    string = 'THAT IS SEXY'
     print(encoder.encode_string(string))
 
     string = '10010101110110000011001110000000000011000000111100110'
